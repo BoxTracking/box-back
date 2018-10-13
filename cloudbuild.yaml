@@ -7,6 +7,9 @@ steps:
   env: ['PROJECT_ROOT=hello']
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['app', 'deploy']
+  id: 'deploy-to-app-engine'
+  env: ['GOPATH=/go']
+
 timeout: '1600s'
 artifacts:
   objects:
