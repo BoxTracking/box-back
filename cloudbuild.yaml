@@ -15,7 +15,3 @@ steps:
     path: '/gopath'
 
 timeout: '1600s'
-artifacts:
-  objects:
-    location: 'gs://boxapp-219304.appspot.com/'
-    paths: ['hello']
