@@ -5,6 +5,9 @@ steps:
 - name: 'gcr.io/cloud-builders/go'
   args: ['build', 'hello']
   env: ['PROJECT_ROOT=hello']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['app', 'deploy']
+timeout: '1600s'
 artifacts:
   objects:
     location: 'gs://boxapp-219304.appspot.com/'
