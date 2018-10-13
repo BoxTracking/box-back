@@ -13,7 +13,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	fmt.Fprint(w, "Coming Soon!")
+	fmt.Fprint(w, "Should not deploy this")
 }
 
 func main() {
