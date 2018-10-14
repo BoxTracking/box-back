@@ -4,27 +4,22 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
+
+	"github.com/julienschmidt/httprouter"
 )
 
-// indexHandler responds to requests with our greeting.
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-	fmt.Fprint(w, "Should not deploy this either")
+func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Fprint(w, "Welcome!\n")
+}
+
+func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
 }
 
 func main() {
-	http.HandleFunc("/", indexHandler)
+	router := httprouter.New()
+	router.GET("/", Index)
+	router.GET("/hello/:name", Hello)
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-		log.Printf("Defaulting to port %s", port)
-	}
-
-	log.Printf("Listening on port %s", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
