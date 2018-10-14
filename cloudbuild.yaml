@@ -4,5 +4,9 @@ steps:
 - name: 'gcr.io/cloud-builders/npm'
   args: ['test']
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy", "--version", "$BRANCH_NAME --no-promote"]
+  args: ["app", "deploy", "_tmpvar=`echo $BRANCH_NAME | sed -r 's,/,-,g'", "--version", "$_MOD_BRANCH_NAME", " --no-promote"]
 timeout: "1600s"
+
+substitutions:
+    _MOD_BRANCH_NAME: $_tmpvar 
+
